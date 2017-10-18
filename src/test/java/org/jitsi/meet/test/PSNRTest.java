@@ -142,6 +142,7 @@ public class PSNRTest
             Long framesCount = ownerVideoOperator.getFramesCount(id);
             System.err.printf("frames count for %s: %s\n", id, framesCount);
 
+            float totalPsnr = 0f;
             for (int i = 0; i < framesCount; i += 1)
             {
                 byte[] data = ownerVideoOperator.getFrame(id, i);
@@ -171,7 +172,6 @@ public class PSNRTest
 
                 // read the output from the command
                 String s;
-                float totalPsnr = 0f;
                 try
                 {
                     while ((s = stdInput.readLine()) != null)
@@ -196,21 +196,21 @@ public class PSNRTest
                 }
 
                 assertTrue("The psnr-test.sh failed.", proc.waitFor() == 0);
-                float averagePsnr = totalPsnr / framesCount;
-                System.out.println("Average psnr: " + averagePsnr);
-                String psnrOutputDir =
-                    System.getProperty(ConferenceFixture.PSNR_OUTPUT_DIR_PROP);
-                String psnrOutputFilename =
-                    System.getProperty(ConferenceFixture.PSNR_OUTPUT_FILENAME);
-                PrintWriter writer = new PrintWriter(
-                        Paths.get(psnrOutputDir, psnrOutputFilename).toString());
-                writer.print(Float.toString(averagePsnr));
 
                 // If the test has passed for a specific frame, delete
                 // it to optimize disk space usage.
                 File outputFrameFile = new File(outputFrame);
                 outputFrameFile.delete();
             }
+            float averagePsnr = totalPsnr / framesCount;
+            System.out.println("Average psnr: " + averagePsnr);
+            String psnrOutputDir =
+                System.getProperty(ConferenceFixture.PSNR_OUTPUT_DIR_PROP);
+            String psnrOutputFilename =
+                System.getProperty(ConferenceFixture.PSNR_OUTPUT_FILENAME);
+            PrintWriter writer = new PrintWriter(
+                Paths.get(psnrOutputDir, psnrOutputFilename).toString());
+            writer.print(Float.toString(averagePsnr));
         }
 
         ownerVideoOperator.dispose();
