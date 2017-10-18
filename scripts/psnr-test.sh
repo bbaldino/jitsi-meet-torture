@@ -29,9 +29,8 @@ then
   exit 1
 fi
 #echo "Path to qr decoder: $PATH_TO_QR_DECODER"
-exit 0
 #FRAME_NUMBER=$(java -jar $SCRIPT_DIR/javase-3.2.2-SNAPSHOT-jar-with-dependencies.jar $OUTPUT_FRAME |head -3|tail -1)
-FRAME_NUMBER=$($PATH_TO_QR_DECODER -q $OUTPUT_FRAME | tr -d ["QR-Code:"])
+FRAME_NUMBER=$($PATH_TO_QR_DECODER -q $OUTPUT_FRAME | tr -d ["QR\-Code:"])
 if [ "$FRAME_NUMBER" = "" ]
 then
     FRAME_NUMBER="-1"
