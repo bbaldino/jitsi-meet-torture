@@ -211,6 +211,7 @@ public class PSNRTest
             PrintWriter writer = new PrintWriter(
                 Paths.get(psnrOutputDir, psnrOutputFilename).toString());
             writer.print(Float.toString(averagePsnr));
+            writer.close();
         }
 
         ownerVideoOperator.dispose();
