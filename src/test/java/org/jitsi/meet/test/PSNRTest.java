@@ -202,11 +202,9 @@ public class PSNRTest
                     System.getProperty(ConferenceFixture.PSNR_OUTPUT_DIR_PROP);
                 String psnrOutputFilename =
                     System.getProperty(ConferenceFixture.PSNR_OUTPUT_FILENAME);
-                FileOutputStream output =
-                    new FileOutputStream(
+                PrintWriter writer = new PrintWriter(
                         Paths.get(psnrOutputDir, psnrOutputFilename).toString());
-                DataOutputStream dataOutputStream = new DataOutputStream(output);
-                dataOutputStream.writeFloat(averagePsnr);
+                writer.print(Float.toString(averagePsnr));
 
                 // If the test has passed for a specific frame, delete
                 // it to optimize disk space usage.
