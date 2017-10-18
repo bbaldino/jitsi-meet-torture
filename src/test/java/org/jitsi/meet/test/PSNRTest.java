@@ -118,13 +118,13 @@ public class PSNRTest
 
         // execute every 1 sec. This heartbeat task isn't necessary for the
         // PSNR testing but it can provide hints as to why the PSNR has failed.
-        int millsToRun = minutesToRun * 60 * 1000;
+        int millsToRun = 10 * 1000;
 
         HeartbeatTask heartbeatTask = new HeartbeatTask(millsToRun, false);
 
         heartbeatTask.start(/* delay */ 1000, /* period */ 1000);
 
-        heartbeatTask.await(minutesToRun, TimeUnit.MINUTES);
+        heartbeatTask.await(millsToRun, TimeUnit.MILLISECONDS);
 
         ownerVideoOperator.stopRecording();
 
