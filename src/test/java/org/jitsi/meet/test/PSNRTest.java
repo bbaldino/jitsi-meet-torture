@@ -15,6 +15,7 @@
  */
 package org.jitsi.meet.test;
 
+import com.google.gson.*;
 import junit.framework.*;
 
 import org.jitsi.meet.test.capture.*;
@@ -24,6 +25,7 @@ import org.jitsi.meet.test.util.*;
 import org.openqa.selenium.*;
 
 import java.io.*;
+import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -169,13 +171,17 @@ public class PSNRTest
 
                 // read the output from the command
                 String s;
+                float totalPsnr = 0f;
                 try
                 {
                     while ((s = stdInput.readLine()) != null)
                     {
                         System.err.println(s);
+                        float psnr = Float.parseFloat(s.split(" ")[1]);
                         assertTrue("Frame is bellow the PSNR threshold",
-                                Float.parseFloat(s.split(" ")[1]) > MIN_PSNR);
+                                psnr > MIN_PSNR);
+                        totalPsnr += psnr;
+
                     }
 
                     // read any errors from the attempted command
@@ -190,6 +196,17 @@ public class PSNRTest
                 }
 
                 assertTrue("The psnr-test.sh failed.", proc.waitFor() == 0);
+                float averagePsnr = totalPsnr / framesCount;
+                System.out.println("Average psnr: " + averagePsnr);
+                String psnrOutputDir =
+                    System.getProperty(ConferenceFixture.PSNR_OUTPUT_DIR_PROP);
+                String psnrOutputFilename =
+                    System.getProperty(ConferenceFixture.PSNR_OUTPUT_FILENAME);
+                FileOutputStream output =
+                    new FileOutputStream(
+                        Paths.get(psnrOutputDir, psnrOutputFilename).toString());
+                DataOutputStream dataOutputStream = new DataOutputStream(output);
+                dataOutputStream.writeFloat(averagePsnr);
 
                 // If the test has passed for a specific frame, delete
                 // it to optimize disk space usage.

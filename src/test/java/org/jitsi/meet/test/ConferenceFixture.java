@@ -45,6 +45,9 @@ public class ConferenceFixture
 {
     public static final String JITSI_MEET_URL_PROP = "jitsi-meet.instance.url";
 
+    public static final String PSNR_OUTPUT_DIR_PROP = "psnr.output.dir";
+    public static final String PSNR_OUTPUT_FILENAME = "psnr.out";
+
     public static final String FAKE_AUDIO_FNAME_PROP
         = "jitsi-meet.fakeStreamAudioFile";
 
