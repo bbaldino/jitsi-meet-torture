@@ -22,7 +22,7 @@ print("got psnr value %f for jenkins job %s, build number %s\n" % (psnr, jenkins
 
 jsonData = {
     "buildNum": jenkins_build_number,
-    "buildUrl": jenkins_build_url
+    "buildUrl": jenkins_build_url,
     "psnrValue": psnr
 }
 
