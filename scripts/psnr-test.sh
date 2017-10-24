@@ -16,9 +16,9 @@
 #
 
 SCRIPT_DIR=$(dirname $0)
-OUTPUT_FRAME=$1
-INPUT_FRAME_DIR=$2
-RESIZED_FRAME_DIR=$3
+OUTPUT_FRAME="$1"
+INPUT_FRAME_DIR="$2"
+RESIZED_FRAME_DIR="$3"
 QR_CODE_DECODER="zbarimg"
 
 
@@ -28,9 +28,8 @@ then
   echo "Unable to find the qr decoder executable: $QR_CODE_DECODER. please make sure it's in your path"
   exit 1
 fi
-#echo "Path to qr decoder: $PATH_TO_QR_DECODER"
-#FRAME_NUMBER=$(java -jar $SCRIPT_DIR/javase-3.2.2-SNAPSHOT-jar-with-dependencies.jar $OUTPUT_FRAME |head -3|tail -1)
-FRAME_NUMBER=$($PATH_TO_QR_DECODER -q $OUTPUT_FRAME | tr -d ["QR\-Code:"])
+
+FRAME_NUMBER=$($PATH_TO_QR_DECODER -q "$OUTPUT_FRAME" | tr -d ["QR\-Code:"])
 if [ "$FRAME_NUMBER" = "" ]
 then
     FRAME_NUMBER="-1"
@@ -40,7 +39,7 @@ PSNR=-1
 if [ "$FRAME_NUMBER" != "-1" ]
 then
     INPUT_FRAME=$INPUT_FRAME_DIR/$FRAME_NUMBER.png
-    dimensions=$(identify -format "%wx%h" $OUTPUT_FRAME)
+    dimensions=$(identify -format "%wx%h" "$OUTPUT_FRAME")
     if [ ${dimensions} != "1280x720" ]
     then
         mkdir -p $RESIZED_FRAME_DIR
