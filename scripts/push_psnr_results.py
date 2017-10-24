@@ -10,8 +10,8 @@ if len(sys.argv) < 2:
 
 psnr_output_file_path = sys.argv[1]
 dashboard_service_url = sys.argv[2]
-jenkins_build_number = os.environ("BUILD_NUMBER")
-jenkins_job_name = os.environ("JOB_NAME")
+jenkins_build_number = os.environ["BUILD_NUMBER"]
+jenkins_job_name = os.environ["JOB_NAME"]
 
 with open(psnr_output_file_path, "r") as f:
     line = f.readline()
