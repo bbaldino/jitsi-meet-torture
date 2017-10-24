@@ -11,17 +11,18 @@ if len(sys.argv) < 2:
 psnr_output_file_path = sys.argv[1]
 dashboard_service_url = sys.argv[2]
 jenkins_build_number = os.environ["BUILD_NUMBER"]
-jenkins_job_name = os.environ["JOB_NAME"]
+jenkins_build_url = os.environ["BUILD_URL"]
 
 with open(psnr_output_file_path, "r") as f:
     line = f.readline()
 
 psnr = float(line)
 
-print("got psnr value %f for jenkins job %s, build number %s\n" % (psnr, jenkins_job_name, jenkins_build_number))
+print("got psnr value %f for jenkins job %s, build number %s\n" % (psnr, jenkins_build_url, jenkins_build_number))
 
 jsonData = {
     "buildNum": jenkins_build_number,
+    "buildUrl": jenkins_build_url
     "psnrValue": psnr
 }
 
