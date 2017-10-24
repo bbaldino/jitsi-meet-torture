@@ -25,7 +25,7 @@ jsonData = {
     "psnrValue": psnr
 }
 
-r = request.post(dashboard_service_url, json=jsonData)
+r = requests.post(dashboard_service_url, json=jsonData)
 if r.status_code != requests.codes.ok:
     print("Error pushing psnr data to dashboard: %s" % r.status_code)
     sys.exit(1)
