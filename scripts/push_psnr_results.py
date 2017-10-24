@@ -17,7 +17,7 @@ with open(psnr_output_file_path, "r") as f:
 
 psnr = float(line)
 
-print("got psnr value %f for jenkins job %s, build number %s\n", % (psnr, jenkins_job_name, jenkins_build_number))
+print("got psnr value %f for jenkins job %s, build number %s\n" % (psnr, jenkins_job_name, jenkins_build_number))
 
 jsonData = {
     "buildNum": jenkins_build_number,
