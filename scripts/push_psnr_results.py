@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
-import sys
+import os
 import requests
+import sys
 
 if len(sys.argv) < 2:
     print("Usage: %s <psnr_output_file_path> <dashboard_service_url> \n" % (sys.argv[0]))
@@ -9,8 +10,8 @@ if len(sys.argv) < 2:
 
 psnr_output_file_path = sys.argv[1]
 dashboard_service_url = sys.argv[2]
-jenkins_build_number = sys.env("BUILD_NUMBER")
-jenkins_job_name = sys.env("JOB_NAME")
+jenkins_build_number = os.env("BUILD_NUMBER")
+jenkins_job_name = os.env("JOB_NAME")
 
 with open(psnr_output_file_path, "r") as f:
     line = f.readline()
